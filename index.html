@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet"  href="style.css"/>  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>yonoBot</title>
+</head>
+<body>
+<style>
+div{
+    position:absolute;
+	transform:translate(-50%,-50%);
+	left:50%;
+	top:50%;
+    font-family:Aharoni;
+	text-align:center;
+	padding-left:90px;
+    padding-right:90px;
+}
+h1{
+transform:scale(1.4);
+}
+input{
+    padding-top:10px;
+    padding-bottom:10px;
+    font-family:Aharoni;
+	border-radius:25px;
+	border:2px solid blue;
+	text-indent:10px;
+	transform:scale(1.4);
+}
+button{
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:40px;
+    padding-right:40px;
+    font-family:Aharoni;
+	border-radius:25px;
+	background-color:blue;
+	color:white;
+	transform:scale(1.4);
+}
+span{
+    position:absolute;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+    top:300px;
+}
+</style>
+<div>
+<h1>yonoBot</h1><br/><br/>
+<form id="textForm">
+<input type="text" id="textInput" placeholder="Enter text" required><br/><br/><br/><br/>
+<button type="submit">Speak</button>
+</form>
+<p id="response"></p>
+<span>GREATED BY YOUNES AJYAD</span>
+</div>
+<script>
+document.getElementById('textForm').addEventListener('submit', function(event) {
+event.preventDefault();
+const text = document.getElementById('textInput').value;
+fetch('/speak', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify({ text: text }),
+})
+.then(response => response.text())
+.then(data => {
+document.getElementById('response').innerText = data;
+})
+.catch((error) => {
+console.error('Error:', error);
+});
+});
+</script>
+</body>
+</html>
